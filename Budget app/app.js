@@ -1,15 +1,36 @@
 
-///////////////// BUDGET CONTROLLER
+///////////////// BUDGET CONTROLLER ////////////////////////////////////////////////////////
 const budgetController = (function () {
 
-    //some code
+    let Expense = function(id, description, value){
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+    let Income = function(id, description, value){
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+    
+    let data = {
+        allItemsL: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    }
+
 
 })();
 
 
 
 
-///////////////// UI CONTROLLER
+///////////////// UI CONTROLLER ///////////////////////////////////////////////////////////
 const UIController = (function () {
 
     let DOMstrings = {
@@ -36,10 +57,20 @@ const UIController = (function () {
 
 
 
-//////////////// GLOBAL APP CONTROLLER
+//////////////// GLOBAL APP CONTROLLER //////////////////////////////////////////////////////
 const controller = (function (budgetCtrl, UICtrl) {
 
-    const DOM = UICtrl.getDOMstrings();
+    let setupEventListeners = function () {
+        const DOM = UICtrl.getDOMstrings();
+
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+        document.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                //event.preventDefault(); //prevents the enter key form also triggering a click event
+                ctrlAddItem();
+            }
+        });
+    };
 
     let ctrlAddItem = function () {
         // 1. Get the field input data
@@ -53,16 +84,14 @@ const controller = (function (budgetCtrl, UICtrl) {
 
         // 5. Display the buget on the UI
         console.log('It works!')
-    }
+    };
 
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-
-    document.addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            //event.preventDefault(); //prevents the enter key form also triggering a click event
-            ctrlAddItem();
+    return {
+        init: function () {
+            console.log('App has started');
+            setupEventListeners();
         }
-    });
-
+    }
 })(budgetController, UIController);
 
+controller.init();
