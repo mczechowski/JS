@@ -213,13 +213,9 @@ body {
     justify-content: space-around;
 }
 
-/* .income {
- 
+.income, .expenses {
+    width: 30%;
 }
-
-.expenses {
-
-}  */
 
 h2 {
     text-transform: uppercase;
@@ -237,6 +233,7 @@ h2 {
 }
 
 .item {
+    display: flex;
     padding: 13px;
     border-bottom: 1px solid #e7e7e7;
 }
@@ -248,18 +245,15 @@ h2 {
 .item:nth-child(even) {
     background-color: #f7f7f7;
 }
-
-.item__description {
-    float: left;
+.item__description{
+    flex-grow: 2;
 }
 
 .item__value {
-    float: left;
     transition: transform 0.3s;
 }
 
 .item__percentage {
-    float: left;
     margin-left: 20px;
     transition: transform 0.3s;
     font-size: 11px;
@@ -278,9 +272,6 @@ h2 {
     color: #FF5049;
 }
 
-.item__delete {
-    float: left;
-}
 
 .item__delete--btn {
     font-size: 22px;
