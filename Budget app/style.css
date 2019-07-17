@@ -216,7 +216,11 @@ body {
 }
 
 .income, .expenses {
+<<<<<<< HEAD
     width: 40%;
+=======
+    width: 30%;
+>>>>>>> 6ae2996445b2e1170f547744c210248761a0347d
 }
 
 h2 {
@@ -247,8 +251,12 @@ h2 {
 .item:nth-child(even) {
     background-color: #f7f7f7;
 }
+<<<<<<< HEAD
 
 .item__description {
+=======
+.item__description{
+>>>>>>> 6ae2996445b2e1170f547744c210248761a0347d
     flex-grow: 2;
 }
 
@@ -275,6 +283,10 @@ h2 {
     color: #FF5049;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6ae2996445b2e1170f547744c210248761a0347d
 .item__delete--btn {
     font-size: 22px;
     background: none;
