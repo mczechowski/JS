@@ -61,6 +61,18 @@ const budgetController = (function () {
             return newItem;
         },
 
+        deleteItem: function (type, id) {
+            // id = 3
+            let ids = data.allItems[type].map(function (currnet) {   //the same like forEach, but return new copy of array
+                return currnet.id;
+            });
+
+            let index = ids.indexOf(id);
+            if (index !== -1){
+                data.allItems[type].splice(index, 1);
+            }
+        },
+
         calculateBudget: function () {
             //calculate total income and expenses
             calculateTotal('exp');
@@ -105,7 +117,8 @@ const UIController = (function () {
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expensesLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container: '.container'
     }
 
     return {
@@ -122,10 +135,10 @@ const UIController = (function () {
             //Create HTML string with placeholder txt
             if (type === 'inc') {
                 element = DOMstrings.incomeContainer;
-                html = '<div class="item" id="income-%id%"><div class="item__description">%description%</div><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
+                html = '<div class="item" id="inc-%id%"><div class="item__description">%description%</div><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
             } else if (type === 'exp') {
                 element = DOMstrings.expensesContainer;
-                html = '<div class="item" id="expense-%id%"><div class="item__description">%description%</div><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
+                html = '<div class="item" id="exp-%id%"><div class="item__description">%description%</div><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div>';
             }
 
             //Replace the placeholder txt with some actual data
@@ -135,6 +148,12 @@ const UIController = (function () {
 
             //Insert HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        deleteListItem: function(selectorID){
+
+            let el = document.getElementById(selectorID);
+            el.parentNode.removeChild(el);
         },
 
         clearFields: function () {
@@ -180,7 +199,9 @@ const controller = (function (budgetCtrl, UICtrl) {
                 ctrlAddItem();
             }
         });
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
     };
+
 
     let updateBudget = function () {
         // 1. Calculate the budget
@@ -211,6 +232,25 @@ const controller = (function (budgetCtrl, UICtrl) {
         }
     };
 
+    let ctrlDeleteItem = function (event) {
+        let itemID = event.target.parentNode.parentNode.parentNode.id;
+        if (itemID) {
+            let splitID = itemID.split('-')  //inc-1 -> ['inc', '1']
+            let type = splitID[0];           // ['inc']
+            let ID = parseInt(splitID[1]);   // ['1']
+
+            // 1.delete the item from the data structure
+            budgetCtrl.deleteItem(type, ID);
+
+            // 2. delete the item from the UI
+            UICtrl.deleteListItem(itemID);
+
+            // 3. Update and show the new budget
+            updateBudget();
+        }
+
+    }
+
     return {
         init: function () {
             console.log('App has started');
@@ -221,7 +261,7 @@ const controller = (function (budgetCtrl, UICtrl) {
                 percentage: 0
             });
             setupEventListeners();
-            
+
         }
     }
 })(budgetController, UIController);
