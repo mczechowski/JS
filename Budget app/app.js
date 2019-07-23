@@ -143,7 +143,8 @@ const UIController = (function () {
         expensesLabel: '.budget__expenses--value',
         percentageLabel: '.budget__expenses--percentage',
         container: '.container',
-        expensesPercLabel: '.item__percentage'
+        expensesPercLabel: '.item__percentage',
+        dateLabel: '.budget__title--month'
     };
 
     let formatNumber = function (num, type) {
@@ -223,6 +224,22 @@ const UIController = (function () {
                 };
         },
 
+        displayMonth: function(){
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.toLocaleString('en', { month: 'long' });
+
+            document.querySelector(DOMstrings.dateLabel).textContent = month + ' ' + year;
+        },
+
+        changeType: function(){
+            let fields = document.querySelectorAll(DOMstrings.inputType + ',' + DOMstrings.inputDescription + ',' + DOMstrings.inputValue);
+            fields.forEach(function(cur){
+                cur.classList.toggle('red-focus')
+            });
+            document.querySelector(DOMstrings.inputBtn).classList.toggle('red');
+        },
+
         getDOMstrings: function () {
             return DOMstrings;
         }
@@ -246,6 +263,8 @@ const controller = (function (budgetCtrl, UICtrl) {
             }
         });
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+        document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changeType);
     };
 
 
@@ -315,6 +334,7 @@ const controller = (function (budgetCtrl, UICtrl) {
     return {
         init: function () {
             console.log('App has started');
+            UICtrl.displayMonth();
             UICtrl.displayBudget({
                 budget: 0,
                 totalInc: 0,
