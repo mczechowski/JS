@@ -506,3 +506,15 @@
     }
 
 }
+
+//================================== 6. Node.js ===============================================
+{
+/*
+    node -v
+    npm -v      //check version
+
+    npm init    //create new project
+    npm install webpack --save-dev
+
+*/
+}
