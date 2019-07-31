@@ -514,7 +514,14 @@
     npm -v      //check version
 
     npm init    //create new project
-    npm install webpack --save-dev
+    npm install webpack --save-dev  //local install in specific project
+    npm install webpack --save      //local install in specific project
 
+    npm install live-server --global (or -g)  //global install in entire system (run command everywhere in cmd)
+    //in cmd: live-server
+
+    npm run dev  //run webpack script
+    npm run bulid 
+    
 */
 }
