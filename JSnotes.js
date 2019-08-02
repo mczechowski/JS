@@ -483,7 +483,7 @@
     getWeatherAW(2487956);
     getWeatherAW(523920);
 
-    
+
     let warsaw;
     getWeatherAW(523920).then(jsondata => {
         warsaw = jsondata
@@ -505,23 +505,38 @@
         }
     }
 
+
+    //import export
+    ///file ./views/searchView.js
+    export const add = (a, b) => a + b;
+    export const multiply = (a, b) => a * b;
+    export const ID = 23;
+
+    
+    import { add, multiply, ID } from './views/searchView';
+    ///or
+    import * as searchView from './views/searchView';
+
+    console.log(`Using impored finctions! ${add(ID, 2)} and ${multiply(3, 5)}. ${str}`);
+    ///or
+    console.log(`Using impored finctions! ${searchView.add(searchView.ID, 2)} and ${searchView.multiply(3, 5)}. ${str}`);
 }
 
 //================================== 6. Node.js ===============================================
 {
-/*
-    node -v
-    npm -v      //check version
-
-    npm init    //create new project
-    npm install webpack --save-dev  //local install in specific project
-    npm install webpack --save      //local install in specific project
-
-    npm install live-server --global (or -g)  //global install in entire system (run command everywhere in cmd)
-    //in cmd: live-server
-
-    npm run dev  //run webpack script
-    npm run bulid 
+    /*
+        node -v
+        npm -v      //check version
     
-*/
+        npm init    //create new project
+        npm install webpack --save-dev  //local install in specific project
+        npm install webpack --save      //local install in specific project
+    
+        npm install live-server --global (or -g)  //global install in entire system (run command everywhere in cmd)
+        //in cmd: live-server
+    
+        npm run dev  //run webpack script
+        npm run bulid 
+        
+    */
 }
